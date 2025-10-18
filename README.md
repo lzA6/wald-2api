@@ -43,14 +43,14 @@
 graph TB
     A[客户端应用] --> B[wald-2api 代理服务]
     B --> C[Wald.ai 官方API]
-    
+
     subgraph "wald-2api 内部架构"
         B1[FastAPI Web框架] --> B2[路由层]
         B2 --> B3[Wald Provider]
         B3 --> B4[SSE 流式处理]
         B3 --> B5[数据清洗]
     end
-    
+
     subgraph "客户端兼容性"
         A1[OpenAI SDK] --> B
         A2[第三方客户端] --> B
@@ -97,19 +97,19 @@ sequenceDiagram
 
     C->>W: 发送 OpenAI 格式请求
     Note over W: 接收并验证请求
-    
+
     W->>W: 转换请求格式
     Note over W: _prepare_payload()<br/>生成 UUID<br/>构建消息链
-    
+
     W->>A: 发送 Wald.ai 原生请求
     Note over W: 携带 WOS_SESSION_COOKIE
-    
+
     A->>W: 返回流式响应
     Note over A: 原始数据流<br/>包含内部工作流程
-    
+
     W->>W: 数据清洗和转换
     Note over W: stream_generator()<br/>过滤内部思考<br/>格式标准化
-    
+
     W->>C: 返回 OpenAI 格式响应
     Note over W: 纯净的流式数据
 ```
@@ -309,7 +309,7 @@ cp .env.example .env
 # 编辑 .env 文件设置你的配置
 
 # 启动开发服务器
-uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --port 8088
 ```
 
 ---
